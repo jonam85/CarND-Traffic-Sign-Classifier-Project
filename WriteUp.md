@@ -79,7 +79,7 @@ Number of classes = 43
 
 The below snapshot provides a random list of images (10 numbers each) for the different classes mentioned as per the dataset.
 
-![SignalList](.\SignalList.png)
+![SignalList](SignalList.png)
 
 This visualization provides us the following valuable information:
 
@@ -92,13 +92,13 @@ This visualization provides us the following valuable information:
 
 In order to verify how many samples for each classes are available, the histogram is used to display.
 
-![Histogram](.\Histogram.png)
+![Histogram](Histogram.png)
 
 
 
 It has to be noted that there is a huge difference between the number of samples among different classes of labels. This may lead the network to bias towards the larger sample classes. This was proved during the initial network modeling predictions after half a dozen of iterations and hence it called for adding additional dataset of images in order to make all the classes are having equal rights of samples.
 
-![Histogram_Test_final](.\Histogram_Test_final.png)
+![Histogram_Test_final](Histogram_Test_final.png)
 
 
 
@@ -106,7 +106,7 @@ So, added the additional dataset by augmenting the existing set of training data
 
 After additional dataset, the histogram looked like below (2200 images in each class):
 
-![Histogram_AugmentedData](.\Histogram_AugmentedData.png)
+![Histogram_AugmentedData](Histogram_AugmentedData.png)
 
 ### Design and Test a Model Architecture
 
@@ -116,9 +116,9 @@ After additional dataset, the histogram looked like below (2200 images in each c
 
    (data - np.min(data))/(np.max(data)-np.min(data))
 
-   | Before Normalizing                       | After Normalizing (Grayscale) |
-   | ---------------------------------------- | ----------------------------- |
-   | ![BeforeGrayscale](.\BeforeGrayscale.png) | ![Greyscale](.\Greyscale.png) |
+   | Before Normalizing                      | After Normalizing (Grayscale) |
+   | --------------------------------------- | ----------------------------- |
+   | ![BeforeGrayscale](BeforeGrayscale.png) | ![Greyscale](Greyscale.png)   |
 
    ​
 
@@ -171,7 +171,7 @@ The difference between the validation accuracy and test accuracy (86%) were high
 
 Then I used the **confusion matrix** to analyze on the pictures that are deviating on the predictions. It happened to be the images with lesser number of samples were predicted wrongly.
 
-![cm1](.\cm1.png)
+![cm1](cm1.png)
 
 So the necessity to introduce additional data set with different augmentations triggered. Hence the **Augmented data set created** and the network was trailed with the Augmented Training dataset.
 
@@ -303,7 +303,7 @@ I didn't play much around the optimizer settings as I have used the Adam optimiz
 
 I have collected a random list of images from the internet, cropped, rescaled them to the required 32x32x3 dimensions, normalized the images to grayscale and sent through the network for predictions. The output is quite remarkable on few cases which I shall discuss below.
 
-![Top_K](.\Top_K.png)
+![Top_K](Top_K.png)
 
 
 
@@ -321,10 +321,10 @@ A closer look at where the predictions went wrong:
 
 | Image                                    | Actual                       | Prediction                               | Comments on the Performance              |
 | ---------------------------------------- | ---------------------------- | ---------------------------------------- | ---------------------------------------- |
-| ![20_DangerousCurveToRightSheared](.\images\Distorted\20_DangerousCurveToRightSheared.png) | Dangerous Curve to the right | Traffic Signals                          | This is one place where the network predicted wrongly with very high confidence on the wrong signal. The sample image is slightly projected and the reflection on the image would have created a difference in predicting. |
-| ![25_RoadWorkYellow](.\images\Distorted\25_RoadWorkYellow.png) | Road Work                    | Pedestrians (0.55), General Caution (0.41) | This image is different from the German dataset as the Road work image is in yellow color compared to white in the dataset. But making grayscale shouldn't have considered this, as in my previous trials, the network detected this as Road Work correctly. But it seemed, the prediction is not biased here as it got confused between Pedestrians and General Caution where both look similar. |
-| ![29_BicycleCrossingRotated](.\images\Distorted\29_BicycleCrossingRotated.png) | Bicycle crossing             | Children Crossing                        | This image is also different from the German dataset as in German data set, there will not be a rider on the Bicycle crossing image. Hence the network was tuned to that and considered as the adult appeared in the image, it considered the bicycle as child and hence predicted the Children crossing |
-| ![40_Roundabout](.\images\Distorted\40_Roundabout.png) | Roundabout Mandatory         | Priority Road                            | This is the drawback of using grayscales. My assumption is because of the augmented images having rotated edges for Priority road the network would have miscalculated this sheared version of Roundabout mandatory symbol. Had the network been trained with the colored samples, then the difference between the Yellow colored Priority Road and Blue colored Roundabout Mandatory would have classified them appropriately |
+| ![20_DangerousCurveToRightSheared](images\Distorted\20_DangerousCurveToRightSheared.png) | Dangerous Curve to the right | Traffic Signals                          | This is one place where the network predicted wrongly with very high confidence on the wrong signal. The sample image is slightly projected and the reflection on the image would have created a difference in predicting. |
+| ![25_RoadWorkYellow](images\Distorted\25_RoadWorkYellow.png) | Road Work                    | Pedestrians (0.55), General Caution (0.41) | This image is different from the German dataset as the Road work image is in yellow color compared to white in the dataset. But making grayscale shouldn't have considered this, as in my previous trials, the network detected this as Road Work correctly. But it seemed, the prediction is not biased here as it got confused between Pedestrians and General Caution where both look similar. |
+| ![29_BicycleCrossingRotated](images\Distorted\29_BicycleCrossingRotated.png) | Bicycle crossing             | Children Crossing                        | This image is also different from the German dataset as in German data set, there will not be a rider on the Bicycle crossing image. Hence the network was tuned to that and considered as the adult appeared in the image, it considered the bicycle as child and hence predicted the Children crossing |
+| ![40_Roundabout](images\Distorted\40_Roundabout.png) | Roundabout Mandatory         | Priority Road                            | This is the drawback of using grayscales. My assumption is because of the augmented images having rotated edges for Priority road the network would have miscalculated this sheared version of Roundabout mandatory symbol. Had the network been trained with the colored samples, then the difference between the Yellow colored Priority Road and Blue colored Roundabout Mandatory would have classified them appropriately |
 
 
 
@@ -332,10 +332,10 @@ A set where the network performed better:
 
 | Image                                    |        Actual        |      Prediction      | Comments on Performance                  |
 | ---------------------------------------- | :------------------: | :------------------: | ---------------------------------------- |
-| ![0_20kmphHidden01](.\images\Distorted\0_20kmphHidden01.png) | Speed limit (20km/h) | Speed limit (20km/h) | This image is a distorted image with noises in the bottom and about a few pixels on the right were blocked by another object. |
-| ![27_PedestriansHidden](.\images\Distorted\27_PedestriansHidden.png) |     Pedestrians      |     Pedestrians      | This is a very tricky picture with almost 40% of the image blocked. Though the networked predicted correctly with almost full confidence |
-| ![28_ChildCrossingHidden](.\images\Distorted\28_ChildCrossingHidden.png) |  Children Crossing   |  Children Crossing   | Here also, in spite of the blocked image, the network predicted correctly with major confidence |
-| ![1_30kmphNoisy](.\images\Distorted\1_30kmphNoisy.png) |       30 km/h        |       30 km/h        | The noisy stickered image didn't bother the network as network had full confidence on predicting the image correctly. |
+| ![0_20kmphHidden01](images\Distorted\0_20kmphHidden01.png) | Speed limit (20km/h) | Speed limit (20km/h) | This image is a distorted image with noises in the bottom and about a few pixels on the right were blocked by another object. |
+| ![27_PedestriansHidden](images\Distorted\27_PedestriansHidden.png) |     Pedestrians      |     Pedestrians      | This is a very tricky picture with almost 40% of the image blocked. Though the networked predicted correctly with almost full confidence |
+| ![28_ChildCrossingHidden](images\Distorted\28_ChildCrossingHidden.png) |  Children Crossing   |  Children Crossing   | Here also, in spite of the blocked image, the network predicted correctly with major confidence |
+| ![1_30kmphNoisy](images\Distorted\1_30kmphNoisy.png) |       30 km/h        |       30 km/h        | The noisy stickered image didn't bother the network as network had full confidence on predicting the image correctly. |
 
 
 
@@ -343,7 +343,7 @@ A set where the network performed better:
 
 A visual model on the layer level activations for the first 3 convolution layers are presented below. It can be noted that based on the shift in the gradients, the filter is looking for a specific pattern in that direction.
 
-![visualize_cnn1](.\visualize_cnn1.png)
+![visualize_cnn1](visualize_cnn1.png)
 
 
 
